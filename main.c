@@ -6,7 +6,7 @@
 /*   By: sel-jett <sel-jett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 21:24:01 by sel-jett          #+#    #+#             */
-/*   Updated: 2023/12/25 22:08:05 by sel-jett         ###   ########.fr       */
+/*   Updated: 2023/12/26 00:36:03 by sel-jett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,9 @@
 
 int	main (int ac, char **av)
 {
+	t_neox	*neox;
+
+	neox = NULL;
 	ft_check_args(ac, av);
+	ft_parser(neox, av);
 }
