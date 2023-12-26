@@ -6,28 +6,12 @@
 /*   By: sel-jett <sel-jett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 21:45:34 by sel-jett          #+#    #+#             */
-/*   Updated: 2023/12/26 00:35:31 by sel-jett         ###   ########.fr       */
+/*   Updated: 2023/12/26 01:19:02 by sel-jett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	ft_strlen_line(char *str)
-{
-	int		count;
-	char	*line;
-
-	line = my_strtok(str, " ");
-	count = 0;
-	if (!line)
-		return (0);
-	while (line)
-	{
-		count++;
-		line = my_strtok(NULL, " ");
-	}
-	return (count);
-}
 
 int	ft_search(char *str)
 {
@@ -57,6 +41,29 @@ int	ft_search(char *str)
 	return (0);
 }
 
+int ft_isdigit(int c)
+{
+	return (c >= '0' && c <= '9');
+}
+
+int	ft_strlen_line(char *str)
+{
+	int		count;
+	char	*line;
+
+	line = my_strtok(str, " ");
+	count = 0;
+	if (!line)
+		return (0);
+	while (line)
+	{
+		if (ft_atoi(line) >= 0 || ft_atoi(line) <= 0)
+			count++;
+		line = my_strtok(NULL, " ");
+	}
+	return (count);
+}
+
 int	ft_atoi(const char *str)
 {
 	int			i;
@@ -70,7 +77,7 @@ int	ft_atoi(const char *str)
 		i++;
 	}
 	if (!str[i])
-		return (my_malloc(0, 0), 0);
+		return (write(2, "Input Error\n", 12), my_malloc(0, 0), 0);
 	while (str[i] && str[i] >= '0' && str[i] <= '9')
 	{
 		num = (num * 10) + (str[i] - 48);
@@ -83,6 +90,7 @@ int	ft_parser(t_neox *neox, char **av)
 {
 	char	*line;
 	int		fd;
+	int		count;
 
 	(void)neox;
 	fd = open(av[1], O_RDONLY);
@@ -90,12 +98,15 @@ int	ft_parser(t_neox *neox, char **av)
 	line = get_next_line(fd);
 	if (!line)
 		return (close(fd), my_malloc(0, 0), 0);
-	// while (line)
-	// {
-	// 	count = ft_strlen_line(line);
-	// 	neox->line = my_malloc((count * 4), 1);
-	// }
-	printf(">>>> %d\n", ft_strlen_line(line));
+	count  = 0;
+	while (line)
+	{
+		count = ft_strlen_line(line);
+		printf(">>>> %d\n", count);
+		free(line);
+		// neox->line = my_malloc((count * 4), 1);
+		line = get_next_line(fd);
+	}
 	return (1);
 }
 
