@@ -6,7 +6,7 @@
 /*   By: sel-jett <sel-jett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 23:21:37 by sel-jett          #+#    #+#             */
-/*   Updated: 2023/12/26 00:37:36 by sel-jett         ###   ########.fr       */
+/*   Updated: 2023/12/26 23:40:08 by sel-jett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,7 @@ int	ft_str_line(char *str)
 	while (str[i] != '\0')
 	{
 		if (str[i] == '\n')
-		{
-			i++;
 			return (i);
-		}
 		i++;
 	}
 	return (i);

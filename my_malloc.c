@@ -6,11 +6,17 @@
 /*   By: sel-jett <sel-jett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 21:58:00 by sel-jett          #+#    #+#             */
-/*   Updated: 2023/12/25 22:06:49 by sel-jett         ###   ########.fr       */
+/*   Updated: 2023/12/26 21:51:57 by sel-jett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void	ft_error()
+{
+	write(2, "Invalid file Input !!\n", ft_strlen("Invalid file Input !!\n"));
+	my_malloc(0, 0);
+}
 
 void	dataclear(t_data **head)
 {

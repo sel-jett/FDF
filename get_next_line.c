@@ -6,7 +6,7 @@
 /*   By: sel-jett <sel-jett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 23:21:41 by sel-jett          #+#    #+#             */
-/*   Updated: 2023/12/26 00:37:08 by sel-jett         ###   ########.fr       */
+/*   Updated: 2023/12/26 21:40:12 by sel-jett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,6 @@ char	*get_next_line(int fd)
 	if (!str)
 		return (NULL);
 	line = get_the_line(str);
-	str = get_the_rest(str, ft_strlen(line));
+	str = get_the_rest(str, (ft_strlen(line) + 1));
 	return (line);
 }

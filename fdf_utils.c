@@ -6,7 +6,7 @@
 /*   By: sel-jett <sel-jett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 21:45:34 by sel-jett          #+#    #+#             */
-/*   Updated: 2023/12/26 01:19:02 by sel-jett         ###   ########.fr       */
+/*   Updated: 2023/12/26 23:49:55 by sel-jett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,9 @@ int	ft_atoi(const char *str)
 	int			i;
 	long int	num;
 	int			signe;
+	int			check;
 
-	(1 == 1) && (i = 0, signe = 1, num = 0);
+	(1) && (i = 0, signe = 1, num = 0, check = 0);
 	if (str[i] == '-' || str[i] == '+')
 	{
 		(str[i] == '-') && (signe = -1);
@@ -82,32 +83,97 @@ int	ft_atoi(const char *str)
 	{
 		num = (num * 10) + (str[i] - 48);
 		i++;
+		check = 1;
 	}
+	(str[i] || !check) && (ft_error(), 0);
 	return (num * signe);
 }
 
-int	ft_parser(t_neox *neox, char **av)
+t_neox	*ft_lstlast(t_neox *lst)
+{
+	if (!lst)
+		return (0);
+	while (lst->next)
+		lst = lst->next;
+	return (lst);
+}
+
+void	ft_lstadd_back(t_neox **lst, t_neox *new)
+{
+	t_neox	*node;
+
+	if (!lst)
+		return ;
+	if (!(*lst))
+	{
+		*lst = new;
+		return ;
+	}
+	node = ft_lstlast(*lst);
+	node->next = new;
+}
+
+void	*ft_strcpy(char *s1, char *s2)
+{
+	int	i;
+
+	i = -1;
+	while (s1[++i])
+		s2[i] = s1[i];
+	s2[i] = '\0';
+	return (s2);
+}
+
+t_neox	**ft_parser(t_neox **neox, char **av)
 {
 	char	*line;
+	char	*str;
+	int		i;
 	int		fd;
 	int		count;
+	int		nb;
+	char	*line2;
+	t_neox	*node;
 
-	(void)neox;
+	count = 0;
+	node = my_malloc(sizeof(t_neox), 1);
 	fd = open(av[1], O_RDONLY);
 	(fd < 0) && (write(2, "Invalid Permissions\n", 20), exit(1), 0);
 	line = get_next_line(fd);
 	if (!line)
-		return (close(fd), my_malloc(0, 0), 0);
-	count  = 0;
+		return (close(fd), my_malloc(0, 0), NULL);
 	while (line)
 	{
-		count = ft_strlen_line(line);
-		printf(">>>> %d\n", count);
+		line2 = my_malloc(ft_strlen(line) + 1, 1);
+		line2 = ft_strcpy(line, line2);
+		str = my_strtok(line, " \t");
+		while (str)
+		{
+			nb = ft_atoi(str);
+			// printf("%d ", nb);
+			count++;
+			str = my_strtok(NULL, " \t");
+		}
+		// printf(">>> %s <<<", line2);
+		node->line = my_malloc(4 * count, 1);
+		i = 0;
+		str = my_strtok(line2, " \t");
+		while (str)
+		{
+			nb = ft_atoi(str);
+			// // puts("ss");
+			node->line[i] = nb;
+			printf("%d ", node->line[i]);
+			str = my_strtok(NULL, " \t");
+			i++;
+		}
+		puts("");
+		ft_lstadd_back(neox, node);
+		// node = NULL;
 		free(line);
-		// neox->line = my_malloc((count * 4), 1);
 		line = get_next_line(fd);
 	}
-	return (1);
+	return (neox);
 }
 
 void	ft_check_args(int ac, char **av)
