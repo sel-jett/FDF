@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strtok_two copy.c                                  :+:      :+:    :+:   */
+/*   strtok_two.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sel-jett <sel-jett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 00:25:29 by sel-jett          #+#    #+#             */
-/*   Updated: 2023/12/27 19:23:03 by sel-jett         ###   ########.fr       */
+/*   Updated: 2023/12/27 18:30:54 by sel-jett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	is_delim(char c, char *delim)
 	return (0);
 }
 
-char	*my_strtok(char *src, char *delim)
+char	*my_strtok_two(char *src, char *delim)
 {
 	static char	*backup;
 	char		*ret;

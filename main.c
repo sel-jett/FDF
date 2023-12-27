@@ -6,7 +6,7 @@
 /*   By: sel-jett <sel-jett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 21:24:01 by sel-jett          #+#    #+#             */
-/*   Updated: 2023/12/27 15:32:20 by sel-jett         ###   ########.fr       */
+/*   Updated: 2023/12/27 19:22:13 by sel-jett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,11 @@ int	main (int ac, char **av)
 	{
 		i = -1;
 		while(++i < 10)
-			printf("%d ", neox->line[i]);
-		puts("l6wa");
+		{
+			printf("%d", neox->line[i][0]);
+			printf(",%d ", neox->line[i][1]);
+		}
+		puts("");
 		neox = neox->next;
 	}
 	my_malloc(0, 2);

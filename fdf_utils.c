@@ -6,7 +6,7 @@
 /*   By: sel-jett <sel-jett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 21:45:34 by sel-jett          #+#    #+#             */
-/*   Updated: 2023/12/27 15:36:12 by sel-jett         ###   ########.fr       */
+/*   Updated: 2023/12/27 19:26:27 by sel-jett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ void	ft_parser(t_neox **neox, char **av)
 	int		fd;
 	int		count;
 	int		nb;
+	char	*more;
 	char	*line2;
 	t_neox	*node;
 
@@ -149,17 +150,25 @@ void	ft_parser(t_neox **neox, char **av)
 		str = my_strtok(line, " \t");
 		while (str)
 		{
-			nb = ft_atoi(str);
+			more = my_strtok_two(str, ",");
+			nb = ft_atoi(more);
+			more = my_strtok_two(NULL, ",");
 			count++;
 			str = my_strtok(NULL, " \t");
 		}
-		node->line = my_malloc(4 * count, 1);
+		node->line = my_malloc(sizeof(int **) * count, 1);
 		i = 0;
 		str = my_strtok(line2, " \t");
 		while (str)
 		{
-			nb = ft_atoi(str);
-			node->line[i] = nb;
+			more = my_strtok_two(str, ",");
+			nb = ft_atoi(more);
+			node->line[i][0] = nb;
+			more = my_strtok_two(NULL, ",");
+			if (more)
+				node->line[i][1] = ft_convert(more);
+			else
+				node->line[i][1] = 0;
 			str = my_strtok(NULL, " \t");
 			i++;
 		}

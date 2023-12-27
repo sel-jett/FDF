@@ -6,7 +6,7 @@
 /*   By: sel-jett <sel-jett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 21:29:07 by sel-jett          #+#    #+#             */
-/*   Updated: 2023/12/27 15:34:54 by sel-jett         ###   ########.fr       */
+/*   Updated: 2023/12/27 19:18:17 by sel-jett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 typedef struct s_neox
 {
-	int				*line;
+	int				(*line)[2];
 	struct s_neox	*next;
 }	t_neox;
 
@@ -35,10 +35,12 @@ typedef struct s_data
 }	t_data;
 
 void	ft_error();
+int		ft_convert(char *str);
 void	*my_malloc(size_t size, int mode);
 size_t	ft_strlen(char *str);
 int		ft_atoi(const char *str);
 char	*my_strtok(char *src, char *delim);
+char	*my_strtok_two(char *src, char *delim);
 void	ft_check_args(int ac, char **av);
 void	ft_parser(t_neox **neox, char **av);
 char	*my_strcpy(char *s1, char *s2, char *str);
