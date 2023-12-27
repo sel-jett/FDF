@@ -6,7 +6,7 @@
 /*   By: sel-jett <sel-jett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 21:45:34 by sel-jett          #+#    #+#             */
-/*   Updated: 2023/12/26 23:49:55 by sel-jett         ###   ########.fr       */
+/*   Updated: 2023/12/27 15:36:12 by sel-jett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void	*ft_strcpy(char *s1, char *s2)
 	return (s2);
 }
 
-t_neox	**ft_parser(t_neox **neox, char **av)
+void	ft_parser(t_neox **neox, char **av)
 {
 	char	*line;
 	char	*str;
@@ -140,40 +140,38 @@ t_neox	**ft_parser(t_neox **neox, char **av)
 	fd = open(av[1], O_RDONLY);
 	(fd < 0) && (write(2, "Invalid Permissions\n", 20), exit(1), 0);
 	line = get_next_line(fd);
-	if (!line)
-		return (close(fd), my_malloc(0, 0), NULL);
+	(!line) && (close(fd), my_malloc(0, 0), 0);
+	*neox = node;
 	while (line)
 	{
-		line2 = my_malloc(ft_strlen(line) + 1, 1);
+		line2 = malloc(ft_strlen(line) + 1);
 		line2 = ft_strcpy(line, line2);
 		str = my_strtok(line, " \t");
 		while (str)
 		{
 			nb = ft_atoi(str);
-			// printf("%d ", nb);
 			count++;
 			str = my_strtok(NULL, " \t");
 		}
-		// printf(">>> %s <<<", line2);
 		node->line = my_malloc(4 * count, 1);
 		i = 0;
 		str = my_strtok(line2, " \t");
 		while (str)
 		{
 			nb = ft_atoi(str);
-			// // puts("ss");
 			node->line[i] = nb;
-			printf("%d ", node->line[i]);
 			str = my_strtok(NULL, " \t");
 			i++;
 		}
-		puts("");
-		ft_lstadd_back(neox, node);
-		// node = NULL;
 		free(line);
+		free(line2);
 		line = get_next_line(fd);
+		if (line)
+			node->next = my_malloc(sizeof(t_neox), 1);
+		node = node->next;
+		if (node)
+			node->next = NULL;
 	}
-	return (neox);
 }
 
 void	ft_check_args(int ac, char **av)

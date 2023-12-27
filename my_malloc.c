@@ -6,7 +6,7 @@
 /*   By: sel-jett <sel-jett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 21:58:00 by sel-jett          #+#    #+#             */
-/*   Updated: 2023/12/26 21:51:57 by sel-jett         ###   ########.fr       */
+/*   Updated: 2023/12/27 15:34:31 by sel-jett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,25 @@ void	ft_error()
 	my_malloc(0, 0);
 }
 
-void	dataclear(t_data **head)
+void	dataclear(t_data **hold)
 {
-	t_data	*temp;
+	t_data	*tmp;
 	t_data	*ptr;
 
-	if (!head || !*head)
+	if (!hold || !*hold)
 		return ;
-	temp = *head;
-	while (temp)
+	tmp = *hold;
+	while (tmp)
 	{
-		ptr = temp->next;
-		free(temp->data);
-		free(temp);
-		temp = ptr;
+		ptr = tmp;
+		tmp = tmp->next;
+		free(ptr->data);
+		free(ptr);
 	}
-	*head = NULL;
+	*hold = NULL;
 }
 
-void	*my_malloc(int size, int mode)
+void	*my_malloc(size_t size, int mode)
 {
 	static t_data	*head;
 	t_data			*node;
@@ -50,6 +50,7 @@ void	*my_malloc(int size, int mode)
 		node = malloc(sizeof(t_data));
 		if (!node)
 			return (dataclear(&head), exit(1), NULL);
+		node->data = data;
 		node->next = NULL;
 		(head) && (node->next = head);
 		head = node;
