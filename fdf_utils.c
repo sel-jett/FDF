@@ -6,63 +6,11 @@
 /*   By: sel-jett <sel-jett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 21:45:34 by sel-jett          #+#    #+#             */
-/*   Updated: 2023/12/27 19:26:27 by sel-jett         ###   ########.fr       */
+/*   Updated: 2023/12/27 19:44:25 by sel-jett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-
-int	ft_search(char *str)
-{
-	char	ptr[4];
-	int		i;
-	int		k;
-	int		j;
-
-	i = 0;
-	k = 0;
-	ptr[0] = '.';
-	ptr[1] = 'f';
-	ptr[2] = 'd';
-	ptr[3] = 'f';
-	while (str[i])
-	{
-		if (str[i] == '.')
-		{
-			j = i;
-			while (str[j] && str[j] == ptr[k])
-				(j++) && (k++);
-			if (k == 4 && !str[j])
-				return (1);
-		}
-		i++;
-	}
-	return (0);
-}
-
-int ft_isdigit(int c)
-{
-	return (c >= '0' && c <= '9');
-}
-
-int	ft_strlen_line(char *str)
-{
-	int		count;
-	char	*line;
-
-	line = my_strtok(str, " ");
-	count = 0;
-	if (!line)
-		return (0);
-	while (line)
-	{
-		if (ft_atoi(line) >= 0 || ft_atoi(line) <= 0)
-			count++;
-		line = my_strtok(NULL, " ");
-	}
-	return (count);
-}
 
 int	ft_atoi(const char *str)
 {
@@ -89,30 +37,6 @@ int	ft_atoi(const char *str)
 	return (num * signe);
 }
 
-t_neox	*ft_lstlast(t_neox *lst)
-{
-	if (!lst)
-		return (0);
-	while (lst->next)
-		lst = lst->next;
-	return (lst);
-}
-
-void	ft_lstadd_back(t_neox **lst, t_neox *new)
-{
-	t_neox	*node;
-
-	if (!lst)
-		return ;
-	if (!(*lst))
-	{
-		*lst = new;
-		return ;
-	}
-	node = ft_lstlast(*lst);
-	node->next = new;
-}
-
 void	*ft_strcpy(char *s1, char *s2)
 {
 	int	i;
@@ -124,6 +48,46 @@ void	*ft_strcpy(char *s1, char *s2)
 	return (s2);
 }
 
+void	my_helper(t_neox *node, char *more, char *str)
+{
+	int	i;
+	int	nb;
+
+	i = 0;
+	nb = 0;
+	while (str)
+	{
+		more = my_strtok_two(str, ",");
+		nb = ft_atoi(more);
+		node->line[i][0] = nb;
+		more = my_strtok_two(NULL, ",");
+		if (more)
+			node->line[i][1] = ft_convert(more);
+		else
+			node->line[i][1] = 0;
+		str = my_strtok(NULL, " \t");
+		i++;
+	}
+}
+
+int	my_second_helper(char *more, char *str)
+{
+	int	count;
+	int	nb;
+
+	nb = 0;
+	count = 0;
+	while (str)
+	{
+		more = my_strtok_two(str, ",");
+		nb = ft_atoi(more);
+		more = my_strtok_two(NULL, ",");
+		count++;
+		str = my_strtok(NULL, " \t");
+	}
+	return (count);
+}
+
 void	ft_parser(t_neox **neox, char **av)
 {
 	char	*line;
@@ -131,47 +95,26 @@ void	ft_parser(t_neox **neox, char **av)
 	int		i;
 	int		fd;
 	int		count;
-	int		nb;
 	char	*more;
 	char	*line2;
 	t_neox	*node;
 
-	count = 0;
 	node = my_malloc(sizeof(t_neox), 1);
 	fd = open(av[1], O_RDONLY);
 	(fd < 0) && (write(2, "Invalid Permissions\n", 20), exit(1), 0);
 	line = get_next_line(fd);
 	(!line) && (close(fd), my_malloc(0, 0), 0);
-	*neox = node;
+	(1) && (*neox = node, more = NULL, str = NULL);
 	while (line)
 	{
 		line2 = malloc(ft_strlen(line) + 1);
 		line2 = ft_strcpy(line, line2);
 		str = my_strtok(line, " \t");
-		while (str)
-		{
-			more = my_strtok_two(str, ",");
-			nb = ft_atoi(more);
-			more = my_strtok_two(NULL, ",");
-			count++;
-			str = my_strtok(NULL, " \t");
-		}
+		count = my_second_helper(more, str);
 		node->line = my_malloc(sizeof(int **) * count, 1);
 		i = 0;
 		str = my_strtok(line2, " \t");
-		while (str)
-		{
-			more = my_strtok_two(str, ",");
-			nb = ft_atoi(more);
-			node->line[i][0] = nb;
-			more = my_strtok_two(NULL, ",");
-			if (more)
-				node->line[i][1] = ft_convert(more);
-			else
-				node->line[i][1] = 0;
-			str = my_strtok(NULL, " \t");
-			i++;
-		}
+		my_helper(node, more, str);
 		free(line);
 		free(line2);
 		line = get_next_line(fd);
@@ -181,10 +124,4 @@ void	ft_parser(t_neox **neox, char **av)
 		if (node)
 			node->next = NULL;
 	}
-}
-
-void	ft_check_args(int ac, char **av)
-{
-	(ac != 2) && (write(2, "Invalid Arguments", 18), exit(1), 0);
-	(!ft_search(av[1])) && (write(2, "Invalid file type\n", 18), exit(1), 0);
 }

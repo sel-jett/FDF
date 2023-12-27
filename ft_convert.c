@@ -6,7 +6,7 @@
 /*   By: sel-jett <sel-jett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 18:34:28 by sel-jett          #+#    #+#             */
-/*   Updated: 2023/12/27 19:20:43 by sel-jett         ###   ########.fr       */
+/*   Updated: 2023/12/27 19:45:31 by sel-jett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,12 @@ int	ft_convert(char *str)
 	{
 		if (str[i] >= '0' && str[i] <= '9')
 			ret += ((str[i] - 48) * ft_pow(16, y));
-		else
+		else if (str[i] >= 'a' && str[i] <= 'f')
 			ret += ((str[i] - 'a' + 10) * ft_pow(16, y));
+		else if (str[i] >= 'A' && str[i] <= 'F')
+			ret += ((str[i] - 'a' + 10) * ft_pow(16, y));
+		else
+			ft_error();
 		i++;
 		--y;
 	}

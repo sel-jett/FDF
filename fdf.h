@@ -6,7 +6,7 @@
 /*   By: sel-jett <sel-jett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 21:29:07 by sel-jett          #+#    #+#             */
-/*   Updated: 2023/12/27 19:18:17 by sel-jett         ###   ########.fr       */
+/*   Updated: 2023/12/27 19:36:18 by sel-jett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ typedef struct s_data
 }	t_data;
 
 void	ft_error();
+int		ft_isdigit(int c);
+int		ft_strlen_line(char *str);
+int		ft_search(char *str);
 int		ft_convert(char *str);
 void	*my_malloc(size_t size, int mode);
 size_t	ft_strlen(char *str);

@@ -1,5 +1,6 @@
 SRC = get_next_line.c get_next_line_utils.c strtok_two.c \
-	  ft_convert.c fdf_utils.c my_malloc.c strtok.c main.c
+	  ft_convert.c fdf_utils.c my_malloc.c strtok.c main.c \
+	  fdf_utils_2.c
 
 OBJ = ${SRC:.c=.o}
 
