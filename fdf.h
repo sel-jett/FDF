@@ -6,7 +6,7 @@
 /*   By: sel-jett <sel-jett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 21:29:07 by sel-jett          #+#    #+#             */
-/*   Updated: 2024/01/02 15:59:19 by sel-jett         ###   ########.fr       */
+/*   Updated: 2024/01/02 18:35:11 by sel-jett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int		ft_atoi(const char *str);
 char	*my_strtok(char *src, char *delim);
 char	*my_strtok_two(char *src, char *delim);
 void	ft_check_args(int ac, char **av);
-void	ft_parser(t_neox **neox, char **av);
+int		ft_parser(t_neox **neox, char **av);
 void	plotline_high(void *mlx, void *mlx_win, int x1, int y1, int x2, int y2);
 void	plotline_low(void *mlx, void *mlx_win, int x1, int y1, int x2, int y2);
 char	*my_strcpy(char *s1, char *s2, char *str);

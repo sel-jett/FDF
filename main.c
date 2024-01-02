@@ -6,7 +6,7 @@
 /*   By: sel-jett <sel-jett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 21:24:01 by sel-jett          #+#    #+#             */
-/*   Updated: 2024/01/02 17:46:15 by sel-jett         ###   ########.fr       */
+/*   Updated: 2024/01/02 18:36:30 by sel-jett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,22 +109,24 @@ int	main (int ac, char **av)
 	void	*mlx;
 	void	*mlx_win;
 	t_neox	*neox;
+	int		count;
 	int		x;
 	int		y;
 
 	neox = NULL;
 	mlx = mlx_init();
 	ft_check_args(ac, av);
-	ft_parser(&neox, av);
+	count = ft_parser(&neox, av);
 	mlx_win = mlx_new_window(mlx, 1920, 1200, "Hello world");
 	y = -1;
+	printf(">>> %d\n", count);
 	while (neox)
 	{
 		x = -1;
 		++y;
-		while(++x <= 10)
+		while(++x <= count)
 		{
-				if (x < 10)
+				if (x < count)
 					ft_bresenham(mlx, mlx_win, ((x + 2) * 70), ((y + 2) * 70), (((x + 2) + 1) * 70), (((y + 2)) * 70));
 				ft_bresenham(mlx, mlx_win, ((x + 2) * 70), ((y + 2) * 70), (((x + 2)) * 70), (((y + 2) + 1) * 70));
 		}
@@ -132,7 +134,7 @@ int	main (int ac, char **av)
 	}
 	x = -1;
 	y++;
-	while (++x <= 9)
+	while (++x <= count)
 		ft_bresenham(mlx, mlx_win, ((x + 2) * 70), ((y + 2) * 70), (((x + 2) + 1) * 70), (((y + 2)) * 70));
 	mlx_loop(mlx);
 	my_malloc(0, 2);

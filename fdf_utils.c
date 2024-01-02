@@ -6,7 +6,7 @@
 /*   By: sel-jett <sel-jett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 21:45:34 by sel-jett          #+#    #+#             */
-/*   Updated: 2023/12/27 19:44:25 by sel-jett         ###   ########.fr       */
+/*   Updated: 2024/01/02 18:34:58 by sel-jett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	*ft_strcpy(char *s1, char *s2)
 	return (s2);
 }
 
-void	my_helper(t_neox *node, char *more, char *str)
+int	my_helper(t_neox *node, char *more, char *str)
 {
 	int	i;
 	int	nb;
@@ -68,6 +68,7 @@ void	my_helper(t_neox *node, char *more, char *str)
 		str = my_strtok(NULL, " \t");
 		i++;
 	}
+	return (i);
 }
 
 int	my_second_helper(char *more, char *str)
@@ -88,7 +89,7 @@ int	my_second_helper(char *more, char *str)
 	return (count);
 }
 
-void	ft_parser(t_neox **neox, char **av)
+int	ft_parser(t_neox **neox, char **av)
 {
 	char	*line;
 	char	*str;
@@ -114,7 +115,7 @@ void	ft_parser(t_neox **neox, char **av)
 		node->line = my_malloc(sizeof(int **) * count, 1);
 		i = 0;
 		str = my_strtok(line2, " \t");
-		my_helper(node, more, str);
+		count = my_helper(node, more, str);
 		free(line);
 		free(line2);
 		line = get_next_line(fd);
@@ -124,4 +125,5 @@ void	ft_parser(t_neox **neox, char **av)
 		if (node)
 			node->next = NULL;
 	}
+	return (count);
 }
