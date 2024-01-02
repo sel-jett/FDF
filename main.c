@@ -6,7 +6,7 @@
 /*   By: sel-jett <sel-jett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 21:24:01 by sel-jett          #+#    #+#             */
-/*   Updated: 2024/01/02 18:36:30 by sel-jett         ###   ########.fr       */
+/*   Updated: 2024/01/02 18:40:28 by sel-jett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,6 @@ int	main (int ac, char **av)
 	count = ft_parser(&neox, av);
 	mlx_win = mlx_new_window(mlx, 1920, 1200, "Hello world");
 	y = -1;
-	printf(">>> %d\n", count);
 	while (neox)
 	{
 		x = -1;
