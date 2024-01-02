@@ -6,7 +6,7 @@
 /*   By: sel-jett <sel-jett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 21:29:07 by sel-jett          #+#    #+#             */
-/*   Updated: 2023/12/27 19:36:18 by sel-jett         ###   ########.fr       */
+/*   Updated: 2024/01/02 15:59:19 by sel-jett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <unistd.h>
+# include <mlx.h>
+# include <math.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
@@ -46,6 +48,8 @@ char	*my_strtok(char *src, char *delim);
 char	*my_strtok_two(char *src, char *delim);
 void	ft_check_args(int ac, char **av);
 void	ft_parser(t_neox **neox, char **av);
+void	plotline_high(void *mlx, void *mlx_win, int x1, int y1, int x2, int y2);
+void	plotline_low(void *mlx, void *mlx_win, int x1, int y1, int x2, int y2);
 char	*my_strcpy(char *s1, char *s2, char *str);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_read_all(int fd, char *str);

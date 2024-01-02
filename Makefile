@@ -13,10 +13,10 @@ NAME = fdf
 all: ${NAME}
 
 %o : %c fdf.h
-	${CC} ${FLAGS} -c $< -o $@
+	${CC} ${FLAGS} -Imlx -c $< -o $@
 
 ${NAME}: ${OBJ}
-	${CC} ${FLAGS} ${OBJ} -o $@
+	${CC} ${FLAGS} ${OBJ} -Lmlx -lmlx -framework OpenGL -framework AppKit -o $@
 
 clean:
 	rm -f ${OBJ}
