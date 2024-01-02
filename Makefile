@@ -16,7 +16,7 @@ all: ${NAME}
 	${CC} ${FLAGS} -Imlx -c $< -o $@
 
 ${NAME}: ${OBJ}
-	${CC} ${FLAGS} ${OBJ} -Lmlx -lmlx -framework OpenGL -framework AppKit -o $@
+	${CC} ${FLAGS} ${OBJ} -Lmlx_dir -lmlx -framework OpenGL -framework AppKit -o $@
 
 clean:
 	rm -f ${OBJ}
